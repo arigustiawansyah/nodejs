@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Register BendiCar</title>
+		<style>
+		 body{
+        background-image: url(public/img/ls.webp);
+        background-attachment: fixed;
+        background-size:cover;
+        background-position: 0 -100px;
+        min-height:660px;
+        color: white;
+		}
+		.register-form {
+			width: 320px;
+			height: 230px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+		.register-form h1 {
+			text-align: center;
+			color: #4d4d4d;
+			font-size: 24px;
+			padding: 20px 0 20px 0;
+		}
+		.register-form input[type="password"],
+		.register-form input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid white;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+			background-color: transparent;
+			color: white;
+		}
+		.register-form input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+			background-color: green;
+			border: 0;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+			border-radius: 10px;
+		}
+		.register-background{
+			font-family: arial;
+			background: transparent;
+			border: 2px solid white;
+			padding: 10px;
+			box-shadow: 0px 0px 4px #222;
+			border-radius: 3px;
+			width: 350px;
+			color:white;
+			height: auto;
+			margin: 60px auto;
+			text-align: center;
+			border-radius: 20px;
+		}
+		a,a:hover,a:visited,a:active{
+			text-decoration: none;
+			color:white;
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="register-background">
+     <div class="register-header">
+    <p><strong><h3>Daftar Akun!</h3></strong></p>
+    </div>
+		<div class="register-form">
+			<form action="/save_register" method="POST">
+                <input type="hidden" name="id" placeholder="id">
+				<input type="text" name="username" placeholder="Username" required>
+				<input type="password" name="password" placeholder="Password" required>
+				<input type="submit" value="Simpan">
+			</form>
+			 <p><a href="/"><small>Sudah punya akun? Login!</small></a></p>
+		</div>
+	</body>
+</html>

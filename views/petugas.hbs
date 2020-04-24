@@ -1,0 +1,174 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+  <link href="../public/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+  <style type="text/css">
+  body{
+  background-image: url(../public/img/ls.webp);
+  background-attachment: fixed;
+  background-size:cover;
+  background-position: 0 -100px;
+  min-height:660px;
+  color: white;
+      }
+  </style>
+</head>
+ <div class="container">
+    <h2>List petugas</h2>
+    <br>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#myModalAdd"><img src="public/img/add_16.png"> Add New</button>
+    <table class="table table-striped" id="mytable">
+      <thead>
+        <tr>
+          <th>ID Petugas</th>
+          <th>Nama Petugas</th>
+          <th>Jenis Kelamin</th>
+          <th>Jabatan</th>
+          <th>Gaji</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+         {{#each results}}
+        <tr>
+          <td>{{ id_petugas }}</td>
+          <td>{{ nm_petugas }}</td>
+          <td>{{ jk }}</td>
+          <td>{{ jabatan }}</td>
+          <td>{{ gaji }}</td>
+
+          <td>
+            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ id_petugas }}" data-nm_petugas="{{ nm_petugas }}" data-jk="{{ jk }}" data-jabatan="{{ jabatan }}" data-gaji="{{ gaji }}"><img src="public/img/edit_16.png"></a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ id_petugas }}"><img src="public/img/hapus_16.png"></a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add petugas-->
+    <form action="/save_petugas" method="post">
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Add New </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+              <div class="form-group">
+                   <input type="text" name="id_petugas" class="form-control" placeholder="id_petugas" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="nm_petugas" class="form-control" placeholder="nm_petugas" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="jk" class="form-control" placeholder="jk" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="jabatan" class="form-control" placeholder="jabatan" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="gaji" class="form-control" placeholder="gaji" required>
+               </div>
+             </div>
+             <div class="modal-footer">
+               <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Batal</button>
+             </div>
+           </div>
+         </div>
+        </div>
+   </form>
+
+   <!-- Edit Petugas-->
+   <form action="/update_petugas" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <input type="text" name="nm_petugas" class="form-control nm_petugas" placeholder="nm_petugas" required>
+              </div>
+              <div class="form-group">
+                  <input type="text" name="jk" class="form-control jk" placeholder="jk" required>
+              </div>
+               <div class="form-group">
+                  <input type="text" name="jabatan" class="form-control jabatan" placeholder="jabatan" required>
+              </div>
+               <div class="form-group">
+                  <input type="text" name="gaji" class="form-control gaji" placeholder="gaji" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id_petugas" class="form-control id_petugas">
+              <button type="submit" class="btn btn-primary btn-sm">Update</button>
+              <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Batal</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+   <!-- Delete Petugas-->
+    <form id="add-row-form" action="/delete_petugas" method="post">
+       <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                 </div>
+                 <div class="modal-body">
+                         <strong>Yakin ingin menghapus?</strong>
+                 </div>
+                 <div class="modal-footer">
+                      <input type="hidden" name="id_petugas" class="form-control id_petugas2" required>
+                      <button type="submit" class="btn btn-primary btn-sm">Hapus</button>
+                      <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Batal</button>
+                 </div>
+              </div>
+          </div>
+       </div>
+   </form>
+
+<script src="/public/js/jquery-3.3.1.js"></script>
+<script src="/public/js/bootstrap.js"></script>
+<script>
+    $(document).ready(function(){
+      //showing data to modal for edit record
+      $('#mytable').on('click','.edit',function(){
+        var id_petugas = $(this).data('id');
+        var nm_petugas = $(this).data('nm_petugas');
+        var jk = $(this).data('jk');
+        var jabatan = $(this).data('jabatan');
+        var gaji = $(this).data('gaji');
+        $('#EditModal').modal('show');
+        $('.nm_petugas').val(nm_petugas);
+        $('.jk').val(jk);
+        $('.jabatan').val(jabatan);
+        $('.gaji').val(gaji);
+        $('.id_petugas').val(id_petugas);
+      });
+      //showing modal for delete record
+      $('#mytable').on('click','.delete',function(){
+        var id_petugas = $(this).data('id');
+        $('#DeleteModal').modal('show');
+        $('.id_petugas2').val(id_petugas);
+      });
+
+    });
+</script>
+</body>
+</html>

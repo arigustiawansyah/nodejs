@@ -1,0 +1,178 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link href="/public/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+   <link href="/public/css/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<style type="text/css">
+  body{
+        background-image: url(public/img/ls.webp);
+        background-attachment: fixed;
+        background-size:cover;
+        background-position: 0 -100px;
+        min-height:660px;
+        color: white;
+}
+
+</style>
+ <div class="container">
+    <h2>List Penyewa</h2>
+    <br>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#myModalAdd"><img src="public/img/add_16.png"> Add New</button>
+    <table class="table table-striped " id="mytable">
+      <thead>
+        <tr>
+          <th>ID penyewa</th>
+          <th>Nama Penyewa</th>
+          <th>Jenis Kelamin</th>
+          <th>alamat penyewa</th>
+          <th>No Hp</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+         {{#each results}}
+        <tr>
+          <td>{{ id_penyewa }}</td>
+          <td>{{ nm_penyewa }}</td>
+          <td>{{ jk }}</td>
+          <td>{{ alamat_penyewa }}</td>
+          <td>{{ no_hp }}</td>
+
+          <td>
+            <a href="javascript:void(0);" class="btn btn-sm btn-primary edit" data-id="{{ id_penyewa }}" data-nm_penyewa="{{ nm_penyewa }}" data-jk="{{ jk }}" data-alamat_penyewa="{{ alamat_penyewa }}" data-no_hp="{{ no_hp }}"><img src="public/img/edit_16.png"></a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ id_penyewa }}"><img src="public/img/hapus_16.png"></a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add penyewa-->
+    <form action="/save_penyewa" method="post">
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Add penyewa </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+              <div class="form-group">
+                   <input type="text" name="id_penyewa" class="form-control" placeholder="id_penyewa" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="nm_penyewa" class="form-control" placeholder="nm_penyewa" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="jk" class="form-control" placeholder="jk" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="alamat_penyewa" class="form-control" placeholder="alamat_penyewa" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="no_hp" class="form-control" placeholder="no_hp" required>
+               </div>
+             </div>
+             <div class="modal-footer">
+               <button type="submit" class="btn btn-primary btn-sm">Save</button>
+               <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
+              
+             </div>
+           </div>
+         </div>
+        </div>
+   </form>
+
+   <!-- Edit Petugas-->
+   <form action="/update_penyewa" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <input type="text" name="nm_penyewa" class="form-control nm_penyewa" placeholder="nm_penyewa" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="jk" class="form-control jk" placeholder="jk" required>
+              </div>
+               <div class="form-group">
+                  <input type="text" name="alamat_penyewa" class="form-control alamat_penyewa" placeholder="alamat_penyewa" required>
+              </div>
+               <div class="form-group">
+                  <input type="text" name="no_hp" class="form-control no_hp" placeholder="no_hp" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id_penyewa" class="form-control id_penyewa">
+              <button type="submit" class="btn btn-primary btn-sm">Update</button>
+               <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+
+   <!-- Delete Petugas-->
+    <form id="add-row-form" action="/delete_penyewa" method="post">
+       <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                 </div>
+                 <div class="modal-body">
+                         <strong>Yakin ingin menghapus?</strong>
+                 </div>
+                 <div class="modal-footer">
+                      <input type="hidden" name="id_penyewa" class="form-control id_penyewa2" required>
+                      <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+                       <button type="button" class="btn btn-success btn-sm " data-dismiss="modal">Close</button>
+                 </div>
+              </div>
+          </div>
+       </div>
+   </form>
+
+<script src="/public/js/jquery-3.3.1.js"></script>
+<script src="/public/js/bootstrap.js"></script>
+<script>
+    $(document).ready(function(){
+      //showing data to modal for edit record
+      $('#mytable').on('click','.edit',function(){
+        var id_penyewa = $(this).data('id');
+        var nm_penyewa = $(this).data('nm_penyewa');
+        var jk = $(this).data('jk');
+        var alamat_penyewa = $(this).data('alamat_penyewa');
+        var no_hp = $(this).data('no_hp');
+        $('#EditModal').modal('show');
+        $('.nm_penyewa').val(nm_penyewa);
+        $('.jk').val(jk);
+        $('.alamat_penyewa').val(alamat_penyewa);
+        $('.no_hp').val(no_hp);
+        $('.id_penyewa').val(id_penyewa);
+      });
+      //showing modal for delete record
+      $('#mytable').on('click','.delete',function(){
+        var id_penyewa = $(this).data('id');
+        $('#DeleteModal').modal('show');
+        $('.id_penyewa2').val(id_penyewa);
+      });
+
+    });
+</script>
+</body>
+</html>

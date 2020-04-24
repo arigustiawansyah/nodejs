@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link href="/public/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+   <link href="/public/css/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<style type="text/css">
+  body{
+        background-image: url(public/img/ls.webp);
+        background-attachment: fixed;
+        background-size:cover;
+        background-position: 0 -100px;
+        min-height:660px;
+        color: white;
+}
+
+</style>
+ <div class="container">
+    <h2>List kendaraan</h2>
+    <br>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#myModalAdd"><img src="public/img/add_16.png"> Add New</button>
+    <table class="table table-striped " id="mytable">
+      <thead>
+        <tr>
+          <th>Nomor Polisi</th>
+          <th>Jenis kendaraan</th>
+          <th>Merk</th>
+          <th>hargasewa</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+         {{#each results}}
+        <tr>
+          <td>{{ no_pol }}</td>
+          <td>{{ jeniskendaraan }}</td>
+          <td>{{ merk }}</td>
+          <td>{{ hargasewa }}</td>
+
+          <td>
+            <a href="javascript:void(0);" class="btn btn-sm btn-primary edit" data-no_pol="{{ no_pol }}" data-jeniskendaraan="{{ jeniskendaraan }}" data-merk="{{ merk }}" data-hargasewa="{{ hargasewa }}"><img src="public/img/edit_16.png"></a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ no_pol }}"><img src="public/img/hapus_16.png"></a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add kendaraan-->
+    <form action="/save_kendaraan" method="post">
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Add penyewa </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+              <div class="form-group">
+                   <input type="text" name="no_pol" class="form-control" placeholder="no_pol" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="jeniskendaraan" class="form-control" placeholder="jeniskendaraan" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="merk" class="form-control" placeholder="merk" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="hargasewa" class="form-control" placeholder="hargasewa" required>
+               </div>
+             </div>
+             <div class="modal-footer">
+               <button type="submit" class="btn btn-primary btn-sm">Save</button>
+               <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
+              
+             </div>
+           </div>
+         </div>
+        </div>
+   </form>
+
+   <!-- Edit kendaran-->
+   <form action="/update_kendaraan" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                   <input type="text" name="jeniskendaraan" class="form-control jeniskendaraan" placeholder="jeniskendaraan" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="merk" class="form-control merk" placeholder="merk" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="hargasewa" class="form-control hargasewa" placeholder="hargasewa" required>
+               </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="no_pol" class="form-control no_pol">
+              <button type="submit" class="btn btn-primary btn-sm">Update</button>
+               <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+
+   <!-- Delete kendaraan-->
+    <form id="add-row-form" action="/delete_kendaraan" method="post">
+       <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                 </div>
+                 <div class="modal-body">
+                         <strong>Yakin ingin menghapus?</strong>
+                 </div>
+                 <div class="modal-footer">
+                      <input type="hidden" name="no_pol" class="form-control no_pol2" required>
+                      <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+                       <button type="button" class="btn btn-success btn-sm " data-dismiss="modal">Close</button>
+                 </div>
+              </div>
+          </div>
+       </div>
+   </form>
+
+<script src="/public/js/jquery-3.3.1.js"></script>
+<script src="/public/js/bootstrap.js"></script>
+<script>
+    $(document).ready(function(){
+      //showing data to modal for edit record
+      $('#mytable').on('click','.edit',function(){
+        var no_pol = $(this).data('no_pol');
+        var jeniskendaraan = $(this).data('jeniskendaraan');
+        var merk = $(this).data('merk');
+        var hargasewa = $(this).data('hargasewa');
+        $('#EditModal').modal('show');
+        $('.jeniskendaraan').val(jeniskendaraan);
+        $('.merk').val(merk);
+        $('.hargasewa').val(hargasewa);
+        $('.no_pol').val(no_pol);
+      });
+      //showing modal for delete record
+      $('#mytable').on('click','.delete',function(){
+        var no_pol = $(this).data('no_pol');
+        $('#DeleteModal').modal('show');
+        $('.no_pol2').val(no_pol);
+      });
+    });
+</script>
+</body>
+</html>
